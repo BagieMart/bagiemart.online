@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BagieMart — Shop Everything, Delivered Fast</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --accent: #ff5c35;
+      --accent2: #ffb800;
+      --text: #f0ede8;
+      --muted: #7a7a8c;
+      --border: #2a2a3a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .logo span { color: var(--accent); }
+
+    nav ul {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    nav ul a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 500 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #e04a26 !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,92,53,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,184,0,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      color: var(--accent2);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-tag::before {
+      content: ''; width: 7px; height: 7px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform: scale(1); }
+      50% { opacity:0.5; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+    .hero h1 em::after {
+      content: '';
+      position: absolute; bottom: 4px; left: 0; right: 0; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 1rem; align-items: center;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(255,92,53,0.3);
+    }
+    .btn-primary:hover {
+      background: #e04a26;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,92,53,0.45);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.95rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .btn-ghost:hover { opacity: 1; }
+    .btn-ghost svg { transition: transform 0.2s; }
+    .btn-ghost:hover svg { transform: translateX(3px); }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position: relative;
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeIn 1s 0.4s ease both;
+    }
+
+    .hero-card-stack {
+      position: relative;
+      width: 340px; height: 420px;
+    }
+
+    .product-card {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      width: 200px;
+      transition: transform 0.3s;
+    }
+
+    .product-card:nth-child(1) {
+      top: 20px; left: 20px;
+      transform: rotate(-4deg);
+      animation: float1 4s ease-in-out infinite;
+    }
+    .product-card:nth-child(2) {
+      top: 60px; left: 110px;
+      transform: rotate(2deg);
+      animation: float2 5s ease-in-out infinite;
+      z-index: 2;
+    }
+    .product-card:nth-child(3) {
+      top: 200px; left: 40px;
+      transform: rotate(-2deg);
+      animation: float3 4.5s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%,100% { transform: rotate(-4deg) translateY(0); }
+      50% { transform: rotate(-4deg) translateY(-10px); }
+    }
+    @keyframes float2 {
+      0%,100% { transform: rotate(2deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-14px); }
+    }
+    @keyframes float3 {
+      0%,100% { transform: rotate(-2deg) translateY(0); }
+      50% { transform: rotate(-2deg) translateY(-8px); }
+    }
+
+    .card-emoji {
+      font-size: 2.5rem; margin-bottom: 0.8rem;
+      display: block;
+    }
+    .card-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .card-price {
+      font-size: 0.85rem; color: var(--accent2);
+      font-weight: 500;
+    }
+    .card-stars { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.04em;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem;
+    }
+
+    /* ── CATEGORIES ── */
+    .section {
+      padding: 6rem 4rem;
+    }
+
+    .section-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem; font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .see-all {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .see-all:hover { color: var(--text); }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+    }
+
+    .cat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+      text-decoration: none; color: var(--text);
+    }
+    .cat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      background: var(--surface2);
+    }
+
+    .cat-icon { font-size: 2.2rem; margin-bottom: 0.7rem; display: block; }
+    .cat-name { font-size: 0.85rem; font-weight: 500; }
+
+    /* ── PRODUCTS ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .prod-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .prod-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,92,53,0.3);
+    }
+
+    .prod-img {
+      background: var(--surface2);
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .prod-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--accent);
+      color: #fff; font-size: 0.7rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 50px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .prod-info { padding: 1.2rem 1.4rem 1.4rem; }
+    .prod-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .prod-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 1rem;
+    }
+    .prod-price {
+      font-size: 1.1rem; font-weight: 500;
+    }
+    .prod-price .old {
+      font-size: 0.8rem; color: var(--muted);
+      text-decoration: line-through; margin-left: 0.4rem;
+    }
+    .prod-stars { font-size: 0.78rem; color: var(--muted); }
+
+    .add-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .add-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* ── PROMO BANNER ── */
+    .promo {
+      margin: 0 4rem;
+      background: linear-gradient(135deg, var(--accent) 0%, #ff8c42 100%);
+      border-radius: 24px;
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promo::before {
+      content: '';
+      position: absolute; top: -50%; right: -10%;
+      width: 500px; height: 500px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+
+    .promo-label {
+      font-size: 0.75rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600;
+      opacity: 0.8; margin-bottom: 0.8rem;
+    }
+
+    .promo h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.8rem; font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+    }
+
+    .promo p { opacity: 0.85; font-size: 1rem; }
+
+    .btn-white {
+      background: #fff;
+      color: var(--accent);
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      white-space: nowrap;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3); }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .feat-icon {
+      width: 50px; height: 50px;
+      background: var(--surface2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feat-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feat-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 6rem;
+      border-top: 1px solid var(--border);
+      padding: 4rem 4rem 2rem;
+    }
+
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem; margin-bottom: 4rem;
+    }
+
+    .footer-brand .logo { font-size: 1.4rem; margin-bottom: 1rem; display: block; }
+    .footer-brand p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; max-width: 260px; }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--text); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-visual { display: none; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .section { padding: 4rem 1.5rem; }
+      .categories-grid { grid-template-columns: repeat(3,1fr); }
+      .products-grid { grid-template-columns: repeat(2,1fr); }
+      .features-grid { grid-template-columns: repeat(2,1fr); }
+      .promo { margin: 0 1.5rem; padding: 2.5rem; grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      footer { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Bagie<span>Mart</span></div>
+    <ul>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#products">Deals</a></li>
+      <li><a href="#features">Why Us</a></li>
+      <li><a href="#" class="nav-cta">Shop Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">🎉 New arrivals every day</div>
+      <h1>Shop <em>Smarter</em>,<br>Live Better</h1>
+      <p>Thousands of products, unbeatable prices, and lightning-fast delivery — all in one place. Your one-stop online shopping destination.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn-primary">Explore Deals</a>
+        <a href="#categories" class="btn-ghost">
+          Browse Categories
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="product-card">
+          <span class="card-emoji">📱</span>
+          <div class="card-name">Pro Smartphone</div>
+          <div class="card-price">$349.00</div>
+          <div class="card-stars">★★★★★ (2.1k)</div>
+        </div>
+        <div class="product-card">
+          <span class="card-emoji">👟</span>
+          <div class="card-name">Sport Sneakers</div>
+          <div class="card-price">$89.00</div>
+          <div class="card-stars">★★★★☆ (830)</div>
+        </div>
+        <div class="product-card">
+          <span class="card-emoji">🎧</span>
+          <div class="card-name">Wireless Headset</div>
+          <div class="card-price">$129.00</div>
+          <div class="card-stars">★★★★★ (1.4k)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">50<span>K+</span></div>
+      <div class="stat-label">Products listed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2<span>M+</span></div>
+      <div class="stat-label">Happy customers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">99<span>%</span></div>
+      <div class="stat-label">Satisfaction rate</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24<span>/7</span></div>
+      <div class="stat-label">Customer support</div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="section" id="categories">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Browse by</div>
+        <div class="section-title">Top Categories</div>
+      </div>
+      <a href="#" class="see-all">View all →</a>
+    </div>
+    <div class="categories-grid">
+      <a class="cat-card" href="#">
+        <span class="cat-icon">📱</span>
+        <div class="cat-name">Electronics</div>
+      </a>
+      <a class="cat-card" href="#">
+        <span class="cat-icon">👗</span>
+        <div class="cat-name">Fashion</div>
+      </a>
+      <a class="cat-card" href="#">
+        <span class="cat-icon">🏠</span>
+        <div class="cat-name">Home & Living</div>
+      </a>
+      <a class="cat-card" href="#">
+        <span class="cat-icon">💄</span>
+        <div class="cat-name">Beauty</div>
+      </a>
+      <a class="cat-card" href="#">
+        <span class="cat-icon">⚽</span>
+        <div class="cat-name">Sports</div>
+      </a>
+      <a class="cat-card" href="#">
+        <span class="cat-icon">🧸</span>
+        <div class="cat-name">Toys & Kids</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="products" style="padding-top:0">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Hot picks</div>
+        <div class="section-title">Today's Best Deals</div>
+      </div>
+      <a href="#" class="see-all">View all →</a>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">📱<span class="prod-badge">-30%</span></div>
+        <div class="prod-info">
+          <div class="prod-name">NovaPro 15 Smartphone</div>
+          <div class="prod-stars">★★★★★ 4.9 · 2,143 reviews</div>
+          <div class="prod-meta">
+            <div class="prod-price">$349 <span class="old">$499</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">🎧</div>
+        <div class="prod-info">
+          <div class="prod-name">SoundWave ANC Headphones</div>
+          <div class="prod-stars">★★★★★ 4.8 · 1,409 reviews</div>
+          <div class="prod-meta">
+            <div class="prod-price">$129</div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">👟<span class="prod-badge">New</span></div>
+        <div class="prod-info">
+          <div class="prod-name">AirFlex Sport Sneakers</div>
+          <div class="prod-stars">★★★★☆ 4.6 · 834 reviews</div>
+          <div class="prod-meta">
+            <div class="prod-price">$89</div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">⌚<span class="prod-badge">-20%</span></div>
+        <div class="prod-info">
+          <div class="prod-name">Chrono Smart Watch</div>
+          <div class="prod-stars">★★★★★ 4.9 · 3,210 reviews</div>
+          <div class="prod-meta">
+            <div class="prod-price">$199 <span class="old">$249</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <div class="promo">
+    <div>
+      <div class="promo-label">Limited time offer</div>
+      <h2>Get 15% Off<br>Your First Order</h2>
+      <p>Use code <strong>BAGIE15</strong> at checkout. New customers only.</p>
+    </div>
+    <a href="#" class="btn-white">Claim Offer →</a>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Why choose us</div>
+        <div class="section-title">Shopping Made Easy</div>
+      </div>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🚚</div>
+        <div class="feat-title">Fast Delivery</div>
+        <div class="feat-desc">Get your orders delivered in 1–3 business days. Free shipping on orders over $50.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-title">Secure Payments</div>
+        <div class="feat-desc">Shop with confidence. All transactions are encrypted and 100% secure.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">↩️</div>
+        <div class="feat-title">Easy Returns</div>
+        <div class="feat-desc">Not happy? Return any item within 30 days — no questions asked.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">24/7 Support</div>
+        <div class="feat-desc">Our friendly team is always here to help via chat, email, or phone.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Bagie<span>Mart</span></div>
+        <p>Your trusted online shopping destination. Quality products, honest prices, and a shopping experience you'll love.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Deals & Offers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 BagieMart. All rights reserved.</span>
+      <span>Made with ❤️ for great shopping</span>
+    </div>
+  </footer>
+
+</body>
+</html>
